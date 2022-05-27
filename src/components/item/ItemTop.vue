@@ -43,19 +43,19 @@
     </van-tabbar> -->
     <div class="iconInfo">
       <div>
-        <van-icon name="comment-o" size=".5rem"/>
+        <van-icon name="comment-o" size=".5rem" color="white"/>
         <span>{{ playlist.commentCount }}</span>
       </div>
       <div>
-        <van-icon name="share-o" size=".5rem"/>
+        <van-icon name="share-o" size=".5rem" color="white"/>
         <span>{{ playlist.shareCount }}</span>
       </div>
       <div>
-        <van-icon name="friends-o" size=".5rem"/>
+        <van-icon name="friends-o" size=".5rem" color="white"/>
         <span>下载</span>
       </div>
       <div>
-        <van-icon name="setting-o" size=".5rem"/>
+        <van-icon name="setting-o" size=".5rem" color="white"/>
         <span>多选</span>
       </div>
     </div>
@@ -82,13 +82,16 @@ export default {
 
 <style lang="less" scoped>
 .bg {
-  position: fixed;
-  top: 0;
   .topNav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: .3rem;
+    width: 100%;
+    height: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    padding: .3rem;
   .van-icon {
     color: white;
   }
@@ -119,7 +122,7 @@ export default {
     filter: blur(10px);
   }
   .detailInfo {
-    margin: .5rem 0;
+    margin: 1rem 0 .3rem;
     padding: 0 .3rem;
     display: flex;
     justify-content: space-between;
@@ -163,6 +166,7 @@ export default {
       align-items: center;
       span {
         margin-top: .2rem;
+        color: white;
       }
     }
   }

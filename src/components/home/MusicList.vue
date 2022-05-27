@@ -44,6 +44,7 @@ setup() {
     }
   }
   onMounted(async () => {
+    // 得到推荐歌单数据
     let res = await getMusicList()
     console.log(res,'推荐歌单数据'); 
     musicData.musicList = res.data.result
