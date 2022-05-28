@@ -12,7 +12,7 @@
     </div>
     <div class="list">
       <div class="listItem" v-for="(item,index) in musicList" :key="item.id">
-        <div class="left">
+        <div class="left" @click="playMusic(index)">
           <span class="index"> {{ index + 1 }} </span>
           <div class="value">
             <div class="van-ellipsis"> {{ item.name }} </div>
@@ -25,7 +25,7 @@
         </div>
         <div class="right">
           <van-icon class="mv" name="video-o" size=".5rem" v-if="item.mv !== 0"/>
-          <van-icon name="wap-nav" size=".5rem" v-else/>
+          <van-icon name="wap-nav" size=".5rem"/>
         </div>
       </div>
     </div>
@@ -34,32 +34,18 @@
 
 <script>
 import { reactive, ref } from 'vue'
+import { useStore } from 'vuex'
 export default {
   props : [ 'musicList', 'playlist' ],
   setup(props) {
-    const loading = ref(false);
-    const finished = ref(false);
-    const list = ref(props.musicList)
-    /* const state = reactive({
-      musicList: []
-    }) */
-    const onLoad = () => {
-      // 异步更新数据
-      // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-      setTimeout(() => {
-        // 加载状态结束
-        loading.value = false;
-        // 数据全部加载完成
-        if (list.value.length == 20) {
-          finished.value = true;
-        }
-      }, 1000);
-    }
+    const store = useStore()
     console.log(props,'musicList的数据');
+    function playMusic(index) {
+      store.commit('updataPlayList',props.musicList)
+      store.commit('updataPlayListIndex',index)
+    }
     return {
-      onLoad,
-      loading,
-      finished
+      playMusic
     }
   }
 }

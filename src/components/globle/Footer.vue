@@ -1,12 +1,16 @@
 <template>
   <div class="Footer">
-    <div class="left">
+    <div class="left" @click="$store.commit('changeLyricDetailShoe')">
       <img :src="playList[playListIndex].al.picUrl" alt="">
       <div class="van-ellipsis">
-        <p class="musicName"> {{ playList[playListIndex].al.name }} </p>
+        <p class="musicName"> {{ playList[playListIndex].name }} </p>
         <p class="des">横滑切换上下首</p>
       </div>
     </div>
+    <!-- 弹出层 -->
+    <van-popup v-model:show="$store.state.lyricDetailShoe" position="top" :style="{ height: '80%' }">
+      <LyricDetail :playList = "playList"></LyricDetail>
+    </van-popup>
     <div class="right">
       <van-icon class="start" name="play-circle-o" size=".6rem" @click="play" v-if="audioPaused"/>
       <van-icon class="start" name="pause-circle-o" size=".6rem" @click="play" v-else/>
@@ -18,7 +22,8 @@
 
 <script>
 import {useStore} from 'vuex'
-import {ref, onMounted,computed} from 'vue'
+import {ref, onMounted,computed, watch} from 'vue'
+import LyricDetail from '@/components/globle/LyricDetail.vue'
 export default {
   setup() {
     const singMusic = ref(null)
@@ -26,16 +31,18 @@ export default {
     console.log(singMusic.value,'singMusic的数据-----前');
     onMounted(() => {
       console.log(singMusic,'singMusic的数据-----后');
-      console.log(singMusic.value.paused,'singMusic.value的数据');
+      // console.log(singMusic.value.paused,'singMusic.value的数据');
     })
     console.log(store.state.playList,'playList的值');
     function play() {
       if(store.state.audioPaused) {
         singMusic.value.play()
-        store.state.audioPaused = false
+        // store.state.audioPaused = false
+        store.commit('changeAudio',false)
       }else {
         singMusic.value.pause()
-        store.state.audioPaused = true
+        // store.state.audioPaused = true
+        store.commit('changeAudio',true)
       }
     }
     return {
@@ -46,13 +53,22 @@ export default {
       audioPaused: computed(() => store.state.audioPaused)
     }
   },
+  watch: {
+    playList() {
+      this.$refs.singMusic.autoplay = true
+      this.$store.commit('changeAudio',false)
+    }
+  },
+  components: {
+    LyricDetail
+  }
 }
 </script>
 
 <style lang="less" scoped>
 .Footer {
   height: 1.5rem;
-  background-color: pink;
+  background-color: grey;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -1,5 +1,6 @@
 <template>
-  <ItemTop :playlist="state.playlist"></ItemTop>
+  <!-- <div>伊蕾娜</div> -->
+  <ItemTop :playlist="state.playlist" :creator="state.creator"></ItemTop>
   <ItemList :musicList="state.musicList" :playlist="state.playlist"></ItemList>
 </template>
 
@@ -13,6 +14,7 @@ export default {
   setup() {
     const state = reactive({
       playlist: {},
+      creator: {},
       musicList: []
     })
     onMounted(async () => {
@@ -21,13 +23,14 @@ export default {
       let res = await getItemMusic(id)
       // console.log(res,'歌单详情的数据');
       state.playlist = res.data.playlist
-      window.sessionStorage.setItem('itemData',JSON.stringify(res.data.playlist))
-      // console.log(state.playlist,'palylist的值');
+      state.creator = res.data.playlist.creator
+      // window.sessionStorage.setItem('itemData',JSON.stringify(res.data.playlist))
+      // console.log(state.playlist,'palylist的值1');
       // 得到歌曲列表的数据
       let result = await getMusicList(id)
       state.musicList = result.data.songs
-      console.log(result,'result的数据');
-      console.log(state.musicList,'state.musicList的数据');
+      // console.log(result,'result的数据');
+      // console.log(state.musicList,'state.musicList的数据');
     })
     return { state }
     // console.log(useRoute(),'useRouter函数的数据');

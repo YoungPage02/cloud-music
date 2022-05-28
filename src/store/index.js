@@ -14,13 +14,23 @@ export default createStore({
       }
     ],
     playListIndex: 0,
-    audioPaused: true
+    audioPaused: true,
+    lyricDetailShoe: false
   },
   getters: {
   },
   mutations: {
     changeAudio(state,value) {
       state.audioPaused = value
+    },
+    updataPlayList(state,value) {
+      state.playList = value
+    },
+    updataPlayListIndex(state,value) {
+      state.playListIndex = value
+    },
+    changeLyricDetailShoe(state) {
+      state.lyricDetailShoe = !state.lyricDetailShoe
     }
   },
   actions: {

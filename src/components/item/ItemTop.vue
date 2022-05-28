@@ -21,8 +21,8 @@
       <div class="descripton">
         <p> {{ playlist.name }} </p>
         <p>
-          <img :src="playlist.creator.backgroundUrl" alt="">
-          <span> {{ playlist.creator.nickname }} </span>
+          <img :src="creator.backgroundUrl" alt="">
+          <span> {{ creator.nickname }} </span>
           <van-icon name="arrow" />
         </p>
         <div class="van-multi-ellipsis--l2">
@@ -31,16 +31,6 @@
       </div>
     </div>
     <!-- 图标 -->
-    <!-- <van-tabbar :fixed=false :border=false>
-      <van-tabbar-item icon="comment-o">
-        {{ playlist.commentCount }}
-      </van-tabbar-item>
-      <van-tabbar-item icon="share-o">
-        {{ playlist.shareCount }}
-      </van-tabbar-item>
-      <van-tabbar-item icon="friends-o">下载</van-tabbar-item>
-      <van-tabbar-item icon="setting-o">多选</van-tabbar-item>
-    </van-tabbar> -->
     <div class="iconInfo">
       <div>
         <van-icon name="comment-o" size=".5rem" color="white"/>
@@ -63,19 +53,11 @@
 </template>
 
 <script>
-import { reactive, onMounted } from 'vue'
 export default {
-  props:["playlist"],
+  props:["playlist",'creator'],
   setup(props) {
-    /* const state = reactive({
-      creator : {}
-    }) */
-    if(!props.playlist.creator) {
-      props.playlist.creator = JSON.parse(window.sessionStorage.getItem('itemData')).creator 
-    }
-    
-    // console.log(state.creator,'creator的值');
-    // return {state}
+    // console.log(props.playlist,'playlist的值2');
+    // console.log(props.creator,'creator的值');
   }
 }
 </script>
@@ -89,8 +71,6 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
-    top: 0;
     padding: .3rem;
   .van-icon {
     color: white;
@@ -122,7 +102,7 @@ export default {
     filter: blur(10px);
   }
   .detailInfo {
-    margin: 1rem 0 .3rem;
+    margin: 0 .3rem .3rem;
     padding: 0 .3rem;
     display: flex;
     justify-content: space-between;
