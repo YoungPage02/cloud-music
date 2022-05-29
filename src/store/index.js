@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-
+import { getMusicLyric } from '@/request/api/item.js'
 export default createStore({
   state: {
     playList: [
@@ -13,9 +13,10 @@ export default createStore({
         id: 1060910
       }
     ],
-    playListIndex: 0,
-    audioPaused: true,
-    lyricDetailShoe: false
+    playListIndex: 0,  // playlist的下标
+    audioPaused: true,  // 暂停按钮的显示
+    lyricDetailShoe: false,  // 歌词详情页的显示
+    musicLyric: {} //歌词的显示
   },
   getters: {
   },
@@ -31,9 +32,17 @@ export default createStore({
     },
     changeLyricDetailShoe(state) {
       state.lyricDetailShoe = !state.lyricDetailShoe
+    },
+    updataMusicLyric(state,value) {
+      state.musicLyric = value
     }
   },
   actions: {
+    async getMusicLyric_vuex(context,value) {
+      let res = await getMusicLyric(value)
+      console.log(res,'歌词的数据');
+      context.commit('updataMusicLyric',res.data.lrc)
+    }
   },
   modules: {
   }

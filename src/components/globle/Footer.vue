@@ -8,8 +8,8 @@
       </div>
     </div>
     <!-- 弹出层 -->
-    <van-popup v-model:show="$store.state.lyricDetailShoe" position="top" :style="{ height: '80%' }">
-      <LyricDetail :playList = "playList"></LyricDetail>
+    <van-popup v-model:show="$store.state.lyricDetailShoe" position="top" :style="{ height: '100%' }">
+      <LyricDetail :playList = "playList" :play = "play"></LyricDetail>
     </van-popup>
     <div class="right">
       <van-icon class="start" name="play-circle-o" size=".6rem" @click="play" v-if="audioPaused"/>
@@ -22,18 +22,24 @@
 
 <script>
 import {useStore} from 'vuex'
-import {ref, onMounted,computed, watch} from 'vue'
+import {ref, onMounted,computed, onUpdated} from 'vue'
 import LyricDetail from '@/components/globle/LyricDetail.vue'
 export default {
   setup() {
     const singMusic = ref(null)
     const store = useStore()
-    console.log(singMusic.value,'singMusic的数据-----前');
+    const playList = computed(() => store.state.playList)
+    const playListIndex= computed(() => store.state.playListIndex)
+    // console.log(singMusic.value,'singMusic的数据-----前')
     onMounted(() => {
-      console.log(singMusic,'singMusic的数据-----后');
+      // console.log(singMusic,'singMusic的数据-----后');
+      // console.log(playList[playListIndex],'playList[playListIndex]的数据');
       // console.log(singMusic.value.paused,'singMusic.value的数据');
     })
-    console.log(store.state.playList,'playList的值');
+    /* onUpdated(() => {
+      store.dispatch('getMusicLyric_vuex',playList[playListIndex].id)
+    }) */
+    // console.log(store.state.playList,'playList的值');
     function play() {
       if(store.state.audioPaused) {
         singMusic.value.play()
@@ -48,10 +54,14 @@ export default {
     return {
       singMusic,
       play,
-      playList: computed(() => store.state.playList),
-      playListIndex: computed(() => store.state.playListIndex),
+      playList,
+      playListIndex,
       audioPaused: computed(() => store.state.audioPaused)
     }
+  },
+  updated() {
+    this.$store.dispatch('getMusicLyric_vuex',this.$store.state.playList[this.$store.state.playListIndex].id)
+    console.log(this.$store.state.playList[this.$store.state.playListIndex],'this.$store.state.playList[this.$store.state.playListIndex]的值');
   },
   watch: {
     playList() {
