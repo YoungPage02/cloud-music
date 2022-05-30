@@ -14,9 +14,11 @@ export default createStore({
       }
     ],
     playListIndex: 0,  // playlist的下标
-    audioPaused: true,  // 暂停按钮的显示
-    lyricDetailShoe: false,  // 歌词详情页的显示
-    musicLyric: {} //歌词的显示
+    audioPaused: true,  // 暂停按钮的显示true为暂停按钮
+    lyricDetailShoe: false,  // 歌词详情页的显示（弹出层）
+    musicLyric: {}, //歌词的数据
+    currentTime: 0, //歌曲当前时间
+    duration: 0 //歌曲总时间
   },
   getters: {
   },
@@ -30,11 +32,18 @@ export default createStore({
     updataPlayListIndex(state,value) {
       state.playListIndex = value
     },
-    changeLyricDetailShoe(state) {
-      state.lyricDetailShoe = !state.lyricDetailShoe
+    changeLyricDetailShoe(state,value) {
+      state.lyricDetailShoe = value
     },
     updataMusicLyric(state,value) {
       state.musicLyric = value
+    },
+    updatacurrentTime(state,value) {
+      state.currentTime = value
+      // console.log(state.currentTime);
+    },
+    updateDuration(state,value) {
+      state.duration = value
     }
   },
   actions: {

@@ -40,9 +40,11 @@ export default {
   setup(props) {
     const store = useStore()
     console.log(props,'musicList的数据');
+    // 点击歌曲列表,更新vuex、footer.vue中的数据
     function playMusic(index) {
       store.commit('updataPlayList',props.musicList)
       store.commit('updataPlayListIndex',index)
+      store.commit('changeAudio',false)
     }
     return {
       playMusic
