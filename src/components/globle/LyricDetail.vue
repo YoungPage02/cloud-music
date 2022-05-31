@@ -145,7 +145,7 @@ export default {
     }
   },
   watch: {
-    currentTime() {
+    currentTime(newValue) {
       let p = document.querySelector('.lyric_active')
       if(p) {
         // console.log([p.offsetTop]);
@@ -153,6 +153,9 @@ export default {
         if(p.offsetTop > 300) {
           this.$refs.lyricRef.scrollTop = p.offsetTop - 300
         }
+      }
+      if(newValue == this.duration) {
+        this.goPlay(1)
       }
     }
   }

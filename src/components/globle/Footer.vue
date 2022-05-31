@@ -37,11 +37,6 @@ export default {
       // console.log(audioRef.value.paused,'audioRef.value的数据');
     })
     onUpdated(() => {
-      // 存储歌曲总时间到vuex中
-      /* store.commit('updateDuration',audioRef.value.duration)
-      console.log(audioRef,'audioRef的值');
-      console.log(Number(audioRef.value.duration),'audioRef.value.duration的值');
-      console.log(store.state.duration,'歌曲总时间-来自update'); */
     })
     // 歌曲播放，传入duration到vuex中
     function getDuration() {
@@ -53,7 +48,7 @@ export default {
     }
     function changeCuration() {
       // 存储歌曲总时间到vuex中
-      store.commit('updateDuration',audioRef.value.duration)
+      store.commit('updateDuration',(audioRef.value.duration*1000))
       console.log(store.state.duration,'歌曲总时间-来自方法');
     }
     // 播放、暂停事件

@@ -39,7 +39,7 @@ export default {
 <style lang="less" scoped>
 .swiperTop {
   width: 95%;
-  margin: .2rem auto 0;
+  margin: .3rem auto 0;
   .van-swipe {
   .van-swipe-item {
     width: 100%;
