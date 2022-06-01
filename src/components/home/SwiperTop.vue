@@ -29,7 +29,7 @@ export default {
       }) */
       let res = await getBanner()
       swiperData.images = res.data.banners
-      console.log(res,'轮播图数据');
+      // console.log(res,'轮播图数据');
     })
     return { swiperData };
   },

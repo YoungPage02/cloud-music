@@ -1,5 +1,6 @@
 <template>
   <div class="musicList">
+    <!-- 播放全部，收藏数据 -->
     <div class="top">
       <div class="left">
         <van-icon name="play-circle" size=".5rem"/>
@@ -10,7 +11,8 @@
         <van-button icon="plus" type="danger" round >收藏({{ playlist.subscribedCount }})</van-button>
       </div>
     </div>
-    <div class="list">
+    <!-- 歌曲列表 -->
+    <!-- <div class="list">
       <div class="listItem" v-for="(item,index) in musicList" :key="item.id">
         <div class="left" @click="playMusic(index)">
           <span class="index"> {{ index + 1 }} </span>
@@ -28,18 +30,20 @@
           <van-icon name="wap-nav" size=".5rem"/>
         </div>
       </div>
-    </div>
+    </div> -->
+    <MusicList :musicList = 'musicList' :playMusic="playMusic"></MusicList>
   </div>
 </template>
 
 <script>
 import { reactive, ref } from 'vue'
 import { useStore } from 'vuex'
+import MusicList from '@/components/globle/MusicList.vue'
 export default {
   props : [ 'musicList', 'playlist' ],
   setup(props) {
     const store = useStore()
-    console.log(props,'musicList的数据');
+    // console.log(props,'musicList的数据');
     // 点击歌曲列表,更新vuex、footer.vue中的数据
     function playMusic(index) {
       store.commit('updataPlayList',props.musicList)
@@ -49,6 +53,9 @@ export default {
     return {
       playMusic
     }
+  },
+  components: {
+    MusicList
   }
 }
 </script>
@@ -79,7 +86,7 @@ export default {
       font-weight: bold;
     }
   }
-  .listItem {
+  /* .listItem {
     height: .7rem;
     display: flex;
     justify-content: space-between;
@@ -114,6 +121,6 @@ export default {
         margin-right: .3rem;
       }
     }
-  }
+  } */
 }
 </style>

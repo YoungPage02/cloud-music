@@ -1,5 +1,6 @@
 <template>
   <div class="search-music">
+    <!-- 搜索栏--Top -->
     <div class="search">
     <!-- 返回按钮 -->
     <div class="backHome" @click="$router.go(-1)">
@@ -18,20 +19,22 @@
       </div>
     </div>
     
-  </div>
-  <!-- 历史记录栏 -->
-  <div class="search-history">
-    <div class="top">
-      <span>历史记录</span>
-      <!-- 删除按钮 -->
-      <van-icon name="delete-o" size=".4rem" @click="delHistory"/>
     </div>
-    <div class="content">
-      <span v-for="(item) in state.historyList" :key="item">
-        {{ item }}
-      </span>
+    <!-- 历史记录栏 -->
+    <div class="search-history">
+      <div class="top">
+        <span>历史记录</span>
+        <!-- 删除按钮 -->
+        <van-icon name="delete-o" size=".4rem" @click="delHistory"/>
+      </div>
+      <div class="content">
+        <span v-for="(item,i) in state.historyList" :key="item" @click="searchHistory(i)">
+          {{ item }}
+        </span>
+      </div>
     </div>
-  </div>
+    <!-- 歌曲列表 -->
+    <MusicList :musicList="state.musicList" :playMusic="playMusic"></MusicList>
   </div>
 </template>
 
@@ -39,12 +42,17 @@
 import { ref } from 'vue'
 import { reactive } from '@vue/reactivity'
 import { onMounted } from '@vue/runtime-core'
+import { getSearchMusic } from '@/request/api/home'
+import MusicList from '@/components/globle/MusicList.vue'
+import { useStore } from 'vuex'
 export default {
   setup() {
     const searchRef = ref(null)
+    const store = useStore()
     const state = reactive({
       historyList: [],
-      searchKey: ''
+      searchKey: '',
+      musicList: []
     })
     onMounted(() => {
       console.log(searchRef,'searchRef---后');
@@ -52,24 +60,45 @@ export default {
         state.historyList = JSON.parse(window.localStorage.getItem('historyKey'))
       }
     })
-    function search() {
+    // 搜索歌曲
+    async function search() {
       state.searchKey = searchRef.value.value
       if(!state.searchKey) return
       state.historyList.unshift(state.searchKey)
       // 去重
       state.historyList = [...new Set(state.historyList)]
       window.localStorage.setItem('historyKey',JSON.stringify(state.historyList))
+      let res = await getSearchMusic(state.searchKey)
+      state.musicList = res.data.result.songs
+      console.log(res.data.result.songs,'state.musicList数据');
     }
+    // 删除全部历史记录
     function delHistory() {
       window.localStorage.removeItem('historyKey')
       state.historyList = []
+    }
+    // 搜索历史记录歌曲
+    async function searchHistory(i) {
+      let res = await getSearchMusic(state.historyList[i])
+      state.musicList = res.data.result.songs
+      console.log(state.musicList,'历史记录歌曲数据');
+    }
+    function playMusic(index) {
+      store.commit('addPlayList',state.musicList[index])
+      store.commit('updataPlayListIndex',store.state.playList.length -1)
+      store.commit('changeAudio',false)
     }
     return {
       searchRef,
       state,
       search,
-      delHistory
+      delHistory,
+      searchHistory,
+      playMusic
     }
+  },
+  components: {
+    MusicList
   }
 }
 </script>

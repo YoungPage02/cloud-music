@@ -1,6 +1,8 @@
 <template>
-    <router-view/>
-    <Footer></Footer>
+    <div class="app">
+      <router-view/>
+      <Footer v-show="$store.state.isFooter"></Footer>
+    </div>
 </template>
 
 <script>
@@ -17,5 +19,9 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+.app {
+  width: 100%;
+  height: 100%;
 }
 </style>

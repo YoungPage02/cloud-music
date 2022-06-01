@@ -32,7 +32,7 @@ export default {
     const playListIndex= computed(() => store.state.playListIndex)
     // console.log(audioRef.value,'audioRef-----前')
     onMounted(() => {
-      console.log(audioRef,'audioRef-----后');
+      // console.log(audioRef,'audioRef-----后');
       // console.log(playList[playListIndex],'playList[playListIndex]的数据');
       // console.log(audioRef.value.paused,'audioRef.value的数据');
     })
@@ -42,14 +42,14 @@ export default {
     function getDuration() {
       // 存储歌曲总时间到vuex中
       store.commit('updateDuration',(audioRef.value.duration)*1000)
-      console.log(audioRef,'audioRef的值');
-      console.log(Number(audioRef.value.duration),'audioRef.value.duration的值');
-      console.log(store.state.duration,'歌曲总时间-来自update');
+      // console.log(audioRef,'audioRef的值');
+      // console.log(Number(audioRef.value.duration),'audioRef.value.duration的值');
+      // console.log(store.state.duration,'歌曲总时间-来自update');
     }
     function changeCuration() {
       // 存储歌曲总时间到vuex中
       store.commit('updateDuration',(audioRef.value.duration*1000))
-      console.log(store.state.duration,'歌曲总时间-来自方法');
+      // console.log(store.state.duration,'歌曲总时间-来自方法');
     }
     // 播放、暂停事件
     function play() {
@@ -85,8 +85,9 @@ export default {
     }
   },
   updated() {
+    // 上传id得到歌词数据
     this.$store.dispatch('getMusicLyric_vuex',this.$store.state.playList[this.$store.state.playListIndex].id)
-    console.log(this.$store.state.playList[this.$store.state.playListIndex],'this.$store.state.playList[this.$store.state.playListIndex]的值');
+    // console.log(this.$store.state.playList[this.$store.state.playListIndex],'this.$store.state.playList[this.$store.state.playListIndex]的值');
     /* this.$store.commit('updateDuration',this.$refs.audioRef.duration)
     console.log(this.$store.state.duration,'歌曲总时间'); */
   },
@@ -104,12 +105,13 @@ export default {
 
 <style lang="less" scoped>
 .Footer {
+  width: 100%;
   height: 1.5rem;
   background-color: grey;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
+  position: absolute;
   bottom: 0;
   .left {
     display: flex;

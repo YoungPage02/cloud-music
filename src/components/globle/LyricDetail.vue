@@ -106,7 +106,7 @@ export default {
             item.pre = arr[index + 1].time
           }
         });
-        console.log(arr);
+        // console.log(arr);
         return arr
       }
     })
@@ -130,7 +130,7 @@ export default {
     onMounted(() => {
       // console.log(store.state.musicLyric.lyric,'歌词的字符串形式');
       props.changeCuration()
-      console.log(store.state.duration,'store.state.duration--来自LyricDetail');
+      // console.log(store.state.duration,'store.state.duration--来自LyricDetail');
     })
     return {
       playList,

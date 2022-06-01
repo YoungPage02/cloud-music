@@ -4,7 +4,7 @@
         <van-icon name="wap-nav" size=".5rem" style="color : black"/>
       </div>
       <div class="title">
-        <span>我的</span>
+        <span @click="$router.push('/userInfo')">我的</span>
         <span class="active">发现</span>
         <span>云村</span>
         <span>视频</span>
@@ -35,6 +35,9 @@ name: 'TopNav'
     span {
       font-size: .35rem;
       margin-left: .2rem;
+    }
+    .active {
+      font-weight: bold;
     }
   }
 }
