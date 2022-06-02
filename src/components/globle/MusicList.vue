@@ -27,6 +27,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.list {
+  margin-bottom: 1.5rem;
+}
 .listItem {
     height: .7rem;
     display: flex;

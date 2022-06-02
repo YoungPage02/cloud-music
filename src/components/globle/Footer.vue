@@ -1,5 +1,5 @@
 <template>
-  <div class="Footer">
+  <div class="Footer van-safe-area-bottom">
     <div class="left" @click="$store.commit('changeLyricDetailShoe',true)">
       <img :src="playList[playListIndex].al.picUrl" alt="">
       <div class="van-ellipsis">
@@ -111,7 +111,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   .left {
     display: flex;
