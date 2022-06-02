@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "test": "echo \"test\" && --timeout 30000000" 
   },
   "dependencies": {
     "axios": "^0.27.2",
