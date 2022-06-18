@@ -6,8 +6,6 @@
       <div class="title">
         <span @click="$router.push('/userInfo')">我的</span>
         <span class="active">发现</span>
-        <span>云村</span>
-        <span>视频</span>
       </div>
       <div class="right" @click="$router.push('/search')">
         <van-icon name="search" size=".5rem" style="color : black"/>

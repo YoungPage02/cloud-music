@@ -34,3 +34,10 @@ export function getUserInfo(id) {
     method: 'GET'
   })
 }
+
+// 获得精品歌单
+export function getGreatMenu(cat) {
+  return service({
+    url: `/top/playlist/highquality?limit=10&cat=${cat}`
+  })
+}

@@ -1,7 +1,9 @@
 <template>
-  <!-- <div>伊蕾娜</div> -->
+  <!-- 点击歌单进入的页面 -->
   <ItemTop :playlist="state.playlist" :creator="state.creator"></ItemTop>
-  <ItemList :musicList="state.musicList" :playlist="state.playlist"></ItemList>
+  <lazy-component>
+    <ItemList :musicList="state.musicList" :playlist="state.playlist" v-lazy='img'></ItemList>
+  </lazy-component>
 </template>
 
 <script>
@@ -17,6 +19,7 @@ export default {
       creator: {},
       musicList: []
     })
+    const img = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2020-10-28%2F5f99180e8dd5a.jpg&refer=http%3A%2F%2Fpic1.win4000.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1658146540&t=e99215d9d6a182a5082371a9e10390a3'
     onMounted(async () => {
       let id = useRoute().query.id
       // 得到歌单详情页的数据
@@ -32,7 +35,7 @@ export default {
       // console.log(result,'result的数据');
       // console.log(state.musicList,'state.musicList的数据');
     })
-    return { state }
+    return { state,img }
     // console.log(useRoute(),'useRouter函数的数据');
   },
   components: {

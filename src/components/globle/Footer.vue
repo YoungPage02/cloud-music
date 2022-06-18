@@ -106,8 +106,8 @@ export default {
 <style lang="less" scoped>
 .Footer {
   width: 100%;
-  height: 1.5rem;
-  background-color: grey;
+  height: 1.2rem;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;

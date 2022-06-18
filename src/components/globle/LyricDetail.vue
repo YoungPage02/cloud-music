@@ -1,4 +1,5 @@
 <template>
+<!-- 此为歌词的详情页 -->
   <div class="lyric-detail">
     <!-- 顶部 -->
     <div class="top">
@@ -177,7 +178,7 @@ export default {
     align-items: center;
     box-sizing: border-box;
     padding: .3rem;
-    background-color: pink;
+    border-bottom: 1px solid black;
     z-index: 2;
     .left {
       display: flex;

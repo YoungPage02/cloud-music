@@ -31,7 +31,9 @@
         </div>
       </div>
     </div> -->
-    <MusicList :musicList = 'musicList' :playMusic="playMusic"></MusicList>
+    <lazy-component>
+      <MusicList :musicList = 'musicList' :playMusic="playMusic" v-lazy='img'></MusicList>
+    </lazy-component>
   </div>
 </template>
 
@@ -43,6 +45,7 @@ export default {
   props : [ 'musicList', 'playlist' ],
   setup(props) {
     const store = useStore()
+    const img = 'https://img1.baidu.com/it/u=3696803513,2394504668&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500'
     // console.log(props,'musicList的数据');
     // 点击歌曲列表,更新vuex、footer.vue中的数据
     function playMusic(index) {
@@ -51,7 +54,8 @@ export default {
       store.commit('changeAudio',false)
     }
     return {
-      playMusic
+      playMusic,
+      img
     }
   },
   components: {

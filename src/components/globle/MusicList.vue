@@ -1,4 +1,5 @@
 <template>
+  <!-- 此为音乐的列表 -->
   <div class="list">
       <div class="listItem" v-for="(item,index) in musicList" :key="item.id">
         <div class="left" @click="playMusic(index)">

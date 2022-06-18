@@ -1,9 +1,8 @@
 <template>
-<!-- 推荐歌单的组件 -->
   <div class="musicList">
     <van-row justify="space-between">
       <van-col span="7" class="findMusic">
-        推荐歌单
+        {{cat}}歌单
       </van-col>
       <van-col span="7" class="btn">
         <van-button round plain size="small">查看更多</van-button>
@@ -13,7 +12,7 @@
       <van-swipe :loop="false" :width="120" :show-indicators=false>
         <van-swipe-item v-for="item in musicData.musicList" :key="item.id">
           <router-link :to=" { path: '/itemMusic',query: { id: item.id } } ">
-            <img :src="item.picUrl" alt="">
+            <img :src="item.coverImgUrl" alt="">
             <span>
               <van-icon name="flag-o" color="white"/>
               {{ changeCount(item.playCount) }}
@@ -29,29 +28,32 @@
 </template>
 
 <script>
-import { getMusicList } from '@/request/api/home'
+import { getGreatMenu } from '@/request/api/home'
 import { reactive, onMounted} from 'vue'
 export default {
-setup() {
-  const musicData = reactive({
-    musicList:[]
-  })
-  function changeCount(num) {
-    if(num > 100000000) {
-      return (num/100000000).toFixed(1) + '亿'
+  props: ['cat'],
+  setup(props) {
+    const musicData = reactive({
+      musicList:[]
+    })
+    const cat = props.cat
+    // console.log(props.cat);
+    function changeCount(num) {
+      if(num > 100000000) {
+        return (num/100000000).toFixed(1) + '亿'
+      }
+      if(num > 10000) {
+        return (num/10000).toFixed(1) + '万'
+      }
     }
-    if(num > 10000) {
-      return (num/10000).toFixed(1) + '万'
-    }
+    onMounted(async () => {
+      // 得到歌单数据
+      let res = await getGreatMenu(props.cat)
+      // console.log(res,props.cat,'日语歌单数据'); 
+      musicData.musicList = res.data.playlists
+    })
+    return { musicData , changeCount,cat}
   }
-  onMounted(async () => {
-    // 得到推荐歌单数据
-    let res = await getMusicList()
-    // console.log(res,'推荐歌单数据'); 
-    musicData.musicList = res.data.result
-  })
-  return { musicData , changeCount}
-}
 }
 </script>
 

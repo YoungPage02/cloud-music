@@ -38,15 +38,14 @@ export default {
 
 <style lang="less" scoped>
 .swiperTop {
-  width: 95%;
-  margin: .3rem auto 0;
+  width: 98%;
+  margin: .2rem auto 0;
   .van-swipe {
   .van-swipe-item {
     width: 100%;
     img {
-      width: 100%;
+      width: 98%;
       border-radius: .2rem;
-      // padding: .2rem;
     }
   }
 }
