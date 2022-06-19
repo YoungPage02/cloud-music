@@ -62,8 +62,8 @@ export default createStore({
     getUserInfo(state,value) {
       state.userInfo = value
     },
-    changeLoading(state) {
-      state.loading = false
+    changeLoading(state,value) {
+      state.loading = value
     }
   },
   actions: {

@@ -34,7 +34,7 @@ export default {
       // 得到歌曲列表的数据
       let result = await getMusicList(id)
       state.musicList = result.data.songs
-      store.commit('changeLoading')
+      // store.commit('changeLoading')
       // console.log(result,'result的数据');
       // console.log(state.musicList,'state.musicList的数据');
     })
