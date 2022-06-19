@@ -67,6 +67,7 @@ export default {
 <style lang="less" scoped>
 .musicList {
   width: 100%;
+  min-height: 3rem;
   /* height: 350px;
   position: fixed;
   bottom: 0; */

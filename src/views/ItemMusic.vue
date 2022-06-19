@@ -12,6 +12,7 @@ import { getItemMusic , getMusicList} from '@/request/api/item.js'
 import { reactive, onMounted} from 'vue'
 import ItemTop from '@/components/item/ItemTop'
 import ItemList from '@/components/item/ItemList.vue'
+import {useStore} from 'vuex'
 export default {
   setup() {
     const state = reactive({
@@ -19,6 +20,7 @@ export default {
       creator: {},
       musicList: []
     })
+    const store = useStore()
     const img = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2020-10-28%2F5f99180e8dd5a.jpg&refer=http%3A%2F%2Fpic1.win4000.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1658146540&t=e99215d9d6a182a5082371a9e10390a3'
     onMounted(async () => {
       let id = useRoute().query.id
@@ -32,6 +34,7 @@ export default {
       // 得到歌曲列表的数据
       let result = await getMusicList(id)
       state.musicList = result.data.songs
+      store.commit('changeLoading')
       // console.log(result,'result的数据');
       // console.log(state.musicList,'state.musicList的数据');
     })

@@ -1,7 +1,9 @@
 <template>
   <!-- 此为音乐的列表 -->
   <div class="list">
-      <div class="listItem" v-for="(item,index) in musicList" :key="item.id">
+    <van-loading type="spinner" color="#1989fa" :vertical='true' v-if='$store.state.loading' />
+    <lazy-component>
+      <div class="listItem" v-for="(item,index) in musicList" :key="item.id" v-lazy="img">
         <div class="left" @click="playMusic(index)">
           <span class="index"> {{ index + 1 }} </span>
           <div class="value">
@@ -18,21 +20,27 @@
           <van-icon name="wap-nav" size=".5rem"/>
         </div>
       </div>
-    </div>
+    </lazy-component>
+  </div>
 </template>
 
 <script>
 export default {
-  props: ['musicList','playMusic']
+  props: ['musicList','playMusic','loadShow'],
+  setup() {
+    const img = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F999f97003a59c1837a6f0286d0cb2d210aa252fb4689-2RIv1X_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1658200347&t=24dfb35338b535ae8782b3a034c2bf62'
+    return {img}
+  }
 }
 </script>
 
 <style lang="less" scoped>
 .list {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 .listItem {
     height: .7rem;
+    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;

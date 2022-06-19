@@ -23,7 +23,8 @@ export default createStore({
     duration: 0, //歌曲总时间
     isLogin: false, //判断是否登录，false为没有登录
     isFooter: true, //判断底部footer播放器是否显示，true为显示
-    userInfo: {} //个人用户信息
+    userInfo: {}, //个人用户信息
+    loading: true //loading加载
   },
   getters: {
   },
@@ -60,6 +61,9 @@ export default createStore({
     },
     getUserInfo(state,value) {
       state.userInfo = value
+    },
+    changeLoading(state) {
+      state.loading = false
     }
   },
   actions: {

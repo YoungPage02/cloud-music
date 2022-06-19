@@ -12,6 +12,7 @@
     <div class="musicContent">
       <van-swipe :loop="false" :width="120" :show-indicators=false>
         <van-swipe-item v-for="item in musicData.musicList" :key="item.id">
+          <!-- 点击歌单，跳转至歌单详情页 -->
           <router-link :to=" { path: '/itemMusic',query: { id: item.id } } ">
             <img :src="item.picUrl" alt="">
             <span>
