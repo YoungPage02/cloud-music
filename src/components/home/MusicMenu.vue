@@ -59,7 +59,7 @@ export default {
 
 <style lang="less" scoped>
 .musicList {
-  margin-top: .3rem;
+  margin-top: .15rem;
   .van-row {
     align-items: center;
     .btn {

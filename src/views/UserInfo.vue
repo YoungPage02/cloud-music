@@ -6,10 +6,10 @@
     </div>
     <div class="panel">
       <div class="nick-img">
-        <img :src="userInfo.data.profile.avatarUrl" alt="">
+        <img src="https://img1.baidu.com/it/u=1735003019,4284614493&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500" alt="">
       </div>
       <div class="nick-name">
-        {{userInfo.data.profile.nickname}}
+        Young_Page
       </div>
     </div>
     <div class="panel2">
@@ -45,9 +45,9 @@
 <script>
 export default {
   setup() {
-    const userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
+    // const userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
     return {
-      userInfo
+      // userInfo
     }
   }
 }
@@ -75,7 +75,8 @@ export default {
       display: flex;
       justify-content: center;
       img {
-        width: 15%;
+        width: 20%;
+        height: 80%;
         border-radius: 50%;
         position: absolute;
         top: -.6rem;

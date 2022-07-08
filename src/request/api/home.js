@@ -23,7 +23,35 @@ export function getSearchMusic(data) {
 // 手机号登录
 export function getPhoneLogin(data) {
   return service({
-    url: `/login/cellphone?phone=${data.phone}&password=${ data.password }`,
+    url: `/login/cellphone?phone=${data.phone}&password=${data.password}`,
+    method: 'GET'
+  })
+}
+// 二维码 key 生成接口
+export function getBaseKey(data) {
+  return service({
+    url: '/login/qr/key',
+    method: 'GET'
+  })
+}
+// 二维码生成接口
+export function getBase64(data) {
+  return service({
+    url: `/login/qr/create?qrimg&key=${data}`,
+    method: 'GET'
+  })
+}
+// 得到验证码
+export function getVerCode(data) {
+  return service({
+    url: `/captcha/sent?phone=${data}`,
+    method: 'GET'
+  })
+}
+// 验证验证码 说明 : 调用此接口 ,传入手机号码和验证码, 可校验验证码是否正确
+export function loginBycode(data) {
+  return service({
+    url: `/captcha/verify?phone=${data.phone}&captcha=${data.code}`,
     method: 'GET'
   })
 }

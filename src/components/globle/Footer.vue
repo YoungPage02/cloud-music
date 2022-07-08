@@ -22,7 +22,7 @@
 
 <script>
 import {useStore} from 'vuex'
-import {ref, onMounted,computed, onUpdated} from 'vue'
+import {ref, onMounted,computed, onUpdated,watch} from 'vue'
 import LyricDetail from '@/components/globle/LyricDetail.vue'
 export default {
   setup() {
@@ -51,6 +51,11 @@ export default {
       store.commit('updateDuration',(audioRef.value.duration*1000))
       // console.log(store.state.duration,'歌曲总时间-来自方法');
     }
+    watch(store.state.playListIndex,(newVal,oldVal) => {
+      console.log(audioRef.value);
+      audioRef.value.autoplay = true
+      store.commit('changeAudio',false)
+    })
     // 播放、暂停事件
     function play() {
       if(store.state.audioPaused) {
@@ -91,12 +96,12 @@ export default {
     /* this.$store.commit('updateDuration',this.$refs.audioRef.duration)
     console.log(this.$store.state.duration,'歌曲总时间'); */
   },
-  watch: {
+  /* watch: {
     playList() {
       this.$refs.audioRef.autoplay = true
       this.$store.commit('changeAudio',false)
     }
-  },
+  }, */
   components: {
     LyricDetail
   }

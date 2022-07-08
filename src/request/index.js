@@ -14,7 +14,7 @@ import { Toast } from 'vant';
 let service = axios.create({
   // baseURL: 'http://localhost:3000/',
   baseURL: 'https://cloud-music-api-liard.vercel.app/',
-  timeout: 5000
+  timeout: 4000
 })
 // 请求拦截器
 service.interceptors.request.use((config) => {

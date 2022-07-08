@@ -96,13 +96,13 @@ export default {
     }
     // 搜索历史记录歌曲
     async function searchHistory(i) {
-      let res = await getSearchMusic(state.recommentList[i])
+      let res = await getSearchMusic(state.historyList[i])
       state.musicList = res.data.result.songs
       console.log(state.musicList,'历史记录歌曲数据');
     }
     // 搜索推荐歌曲
     async function searchRecomment(i) {
-      let res = await getSearchMusic(state.historyList[i])
+      let res = await getSearchMusic(state.recommentList[i])
       state.musicList = res.data.result.songs
       console.log(state.musicList,'推荐歌曲数据');
     }
