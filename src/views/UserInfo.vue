@@ -4,14 +4,39 @@
       <van-icon name="arrow-left" />
       <span>返回</span>
     </div>
-    <div class="top">
-      <!-- 背景 -->
-      <img class="bg-img" src="@/assets/古明地恋.jpg" alt="">
+    <div class="panel">
       <div class="nick-img">
         <img :src="userInfo.data.profile.avatarUrl" alt="">
       </div>
       <div class="nick-name">
         {{userInfo.data.profile.nickname}}
+      </div>
+    </div>
+    <div class="panel2">
+      <div class="panel-item">
+        <img src="@/assets/my_icons/音乐.png" alt="">
+        <p>最近播放</p>
+      </div>
+      <div class="panel-item">
+        <img src="@/assets/my_icons/好友.png" alt="">
+        <p>我的好友</p>
+      </div>
+      <div class="panel-item">
+        <img src="@/assets/my_icons/云下载.png" alt="">
+        <p>云盘</p>
+      </div>
+      <div class="panel-item">
+        <img src="@/assets/my_icons/收藏.png" alt="">
+        <p>收藏和赞</p>
+      </div>
+    </div>
+    <div class="panel3">
+      <div class="left">
+        <img src="@/assets/my_icons/喜欢.png" alt="">
+        <p>我喜欢的音乐</p>
+      </div>
+      <div class="right">
+        心动模式
       </div>
     </div>
   </div>
@@ -30,37 +55,89 @@ export default {
 
 <style lang="less" scoped>
 .user-info {
+  height: 13.34rem;
+  background-color: #efefef;
   .back-home {
     padding: .3rem;
     font-size: .35rem;
   }
-  .top {
-    width: 100%;
-    // background-repeat: no-repeat;
+  .panel {
+    width: 95%;
+    height: 1.5rem;
+    margin: .3rem auto;
+    background-color: white;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    .bg-img {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%);
-      z-index: -1;
-      opacity: .8;
-    }
+    position: relative;
     .nick-img {
       display: flex;
       justify-content: center;
       img {
-        width: 20%;
+        width: 15%;
         border-radius: 50%;
-        margin-top: .5rem;
+        position: absolute;
+        top: -.6rem;
       }
     }
     .nick-name {
-      margin: .2rem 0;
+      line-height: 1.5rem;
+      font-weight: bold;
+    }
+  }
+  .panel2 {
+    width: 95%;
+    background-color: white;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: .2rem;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    .panel-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      img {
+        width: .6rem;
+        height: .6rem;
+      }
+      p {
+        margin: 0;
+        padding: 0;
+        font-size: .2rem;
+      }
+    }
+  }
+  .panel3 {
+    width: 95%;
+    height: 1.4rem;
+    background-color: white;
+    box-sizing: border-box;
+    margin: .4rem auto;
+    padding: .2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    .left {
+      display: flex;
+      align-items: center;
+      img {
+        width: .8rem;
+        height: .8rem;
+      }
+      p {
+        margin: 0 0 0 .3rem;
+        padding: 0;
+        font-size: .2rem;
+      }
+    }
+    .right {
+      border: 1px solid black;
+      border-radius: 10px;
+      padding: 3px;
     }
   }
 }

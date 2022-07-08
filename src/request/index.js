@@ -1,5 +1,6 @@
 import store from '@/store'
 import axios from 'axios'
+import { Toast } from 'vant';
 // 请求拦截器
 /* axios.interceptors.request.use((config) => {
   store.commit('loading',false)

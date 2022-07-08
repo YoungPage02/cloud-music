@@ -64,6 +64,10 @@ export default {
 
 <style lang="less" scoped>
 .bg {
+  position: relative;
+  top: 0;
+  left: 0;
+  // z-index: -1;
   .topNav {
     width: 100%;
     height: 1rem;

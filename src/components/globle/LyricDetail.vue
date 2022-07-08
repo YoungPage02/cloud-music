@@ -275,13 +275,15 @@ export default {
   overflow: hidden;
   padding-top: 1.5rem;
   .lyric {
-    width: 102%;
+    width: 100%;
     height: 9rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow: scroll;
     p {
+      width: 100%;
+      text-align: center;
       margin: .18rem;
       padding: 0;
     }

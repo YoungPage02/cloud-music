@@ -31,14 +31,13 @@
         </div>
       </div>
     </div> -->
-    <lazy-component>
-      <MusicList :musicList = 'musicList' :playMusic="playMusic" v-lazy='img'></MusicList>
-    </lazy-component>
+    <div class="bottom">
+      <MusicList :musicList = 'musicList' :playMusic="playMusic" v-lazy='img' :Pheight="7+'rem'"></MusicList>
+    </div>
   </div>
 </template>
 
 <script>
-import { reactive, ref } from 'vue'
 import { useStore } from 'vuex'
 import MusicList from '@/components/globle/MusicList.vue'
 export default {
@@ -67,10 +66,7 @@ export default {
 <style lang="less" scoped>
 .musicList {
   width: 100%;
-  min-height: 3rem;
-  /* height: 350px;
-  position: fixed;
-  bottom: 0; */
+  height: 8rem;
   background-color: white;
   border-top-left-radius: .3rem;
   border-top-right-radius: .3rem;
@@ -90,6 +86,10 @@ export default {
       font-size: .3rem;
       font-weight: bold;
     }
+  }
+  .bottom {
+    width: 100%;
+    margin-bottom: 1.2rem;
   }
   /* .listItem {
     height: .7rem;

@@ -5,14 +5,17 @@ export default createStore({
     playList: [
       {
         al: {
-          id: 87992021,
-          name: "Fairy Tail",
-          pic: 109951164906684960,
-          picUrl: "http://p3.music.126.net/Gd0cuH0DEpBacVsOQfYcwQ==/109951164906684958.jpg",
-          pic_str: "109951164906684958"
+          id: 2014322,
+          name: "Thirteen Tales Of Love And Revenge",
+          pic: 109951164570376770,
+          picUrl: "https://p1.music.126.net/6iaW2r1wUBo2iHIM9d8ywg==/109951164570376773.jpg",
+          pic_str: "109951164570376773"
         },
-        id: 1440679725,
-        name: 'Fairy Tail'
+        id: 21915699,
+        name: "Secret",
+        ar: [{
+          name: 'The Pierces'
+        }]
       }
     ],
     playListIndex: 0,  // playlist的下标
@@ -24,7 +27,7 @@ export default createStore({
     isLogin: false, //判断是否登录，false为没有登录
     isFooter: true, //判断底部footer播放器是否显示，true为显示
     userInfo: {}, //个人用户信息
-    loading: true //loading加载
+    loading: false //loading加载
   },
   getters: {
   },

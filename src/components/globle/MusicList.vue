@@ -1,10 +1,10 @@
 <template>
   <!-- 此为音乐的列表 -->
-  <div class="list">
-    <van-loading type="spinner" color="#1989fa" :vertical='true' v-if='$store.state.loading' />
+  <div class="list" :style="{height: Pheight}">
+    <van-loading type="spinner" color="#1989fa" :vertical='true' v-if='$store.state.loading && num === 0' />
     <lazy-component>
       <div class="listItem" v-for="(item,index) in musicList" :key="item.id" v-lazy="img">
-        <div class="left" @click="playMusic(index)">
+        <div class="left" @click="playMusic(index);updataNum()">
           <span class="index"> {{ index + 1 }} </span>
           <div class="value">
             <div class="van-ellipsis"> {{ item.name }} </div>
@@ -25,17 +25,24 @@
 </template>
 
 <script>
+import {ref} from 'vue'
 export default {
-  props: ['musicList','playMusic','loadShow'],
+  props: ['musicList','playMusic','loadShow','Pheight'],
   setup() {
+    let num = ref(0)
     const img = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F999f97003a59c1837a6f0286d0cb2d210aa252fb4689-2RIv1X_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1658200347&t=24dfb35338b535ae8782b3a034c2bf62'
-    return {img}
+    function updataNum() {
+      num.value ++
+    }
+    return {img,num,updataNum}
   }
 }
 </script>
 
 <style lang="less" scoped>
 .list {
+  height: 7rem;
+  overflow: scroll;
   margin-bottom: 1.2rem;
 }
 .listItem {

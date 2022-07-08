@@ -2,23 +2,24 @@
   <div class="search-music">
     <!-- 搜索栏--Top -->
     <div class="search">
-    <!-- 返回按钮 -->
-    <div class="backHome" @click="$router.go(-1)">
-      <van-icon name="arrow-left" />
-      <span>返回</span>
-    </div>
-    <!-- 搜索框 -->
-    <div class="search-music">
+      <!-- 返回按钮 -->
+      <div class="backHome" @click="$router.go(-1)">
+        <img src="@/assets/my_icons/系统返回.png" alt="">
+      </div>
+      <!-- 搜索框 -->
       <div class="one">
         <van-icon name="search" size=".4rem"/>
-        <input type="text" placeholder="请输入歌曲名称" ref="searchRef" v-model="state.searchKey">
+        <div class="input">
+          <input type="text" placeholder="  Search" ref="searchRef" v-model="state.searchKey">
+        </div>
       </div>
       <!-- 搜索按钮 -->
-      <div class="tow">
-        <button @click="search">搜索</button>
-      </div>
+      <div class="btn" @click="search">搜索</div>
     </div>
-    
+    <!-- 广告 -->
+    <div class="ad">
+      <div class="text">广告</div>
+      <img src="https://img1.baidu.com/it/u=2281357677,1397715691&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800" alt="">
     </div>
     <!-- 历史记录栏 -->
     <div class="search-history">
@@ -33,8 +34,23 @@
         </span>
       </div>
     </div>
+    <!-- 推荐 -->
+    <div class="search-history">
+      <div class="top">
+        <span>推荐</span>
+        <!-- 刷新 -->
+        <van-icon name="delete-o" size=".4rem"/>
+      </div>
+      <div class="content">
+        <span v-for="(item,i) in state.recommentList" :key="item" @click="searchRecomment(i)">
+          {{ item }}
+        </span>
+      </div>
+    </div>
     <!-- 歌曲列表 -->
-    <MusicList :musicList="state.musicList" :playMusic="playMusic"></MusicList>
+    <div class="bottom">
+       <MusicList class="bottom" :musicList="state.musicList" :playMusic="playMusic" :Pheight="6.3+'rem'"></MusicList>
+    </div>
   </div>
 </template>
 
@@ -52,7 +68,8 @@ export default {
     const state = reactive({
       historyList: [],
       searchKey: '',
-      musicList: []
+      musicList: [],
+      recommentList: ['LOL','野子','恋爱']
     })
     onMounted(() => {
       console.log(searchRef,'searchRef---后');
@@ -79,9 +96,15 @@ export default {
     }
     // 搜索历史记录歌曲
     async function searchHistory(i) {
-      let res = await getSearchMusic(state.historyList[i])
+      let res = await getSearchMusic(state.recommentList[i])
       state.musicList = res.data.result.songs
       console.log(state.musicList,'历史记录歌曲数据');
+    }
+    // 搜索推荐歌曲
+    async function searchRecomment(i) {
+      let res = await getSearchMusic(state.historyList[i])
+      state.musicList = res.data.result.songs
+      console.log(state.musicList,'推荐歌曲数据');
     }
     function playMusic(index) {
       store.commit('addPlayList',state.musicList[index])
@@ -94,7 +117,8 @@ export default {
       search,
       delHistory,
       searchHistory,
-      playMusic
+      playMusic,
+      searchRecomment
     }
   },
   components: {
@@ -106,61 +130,87 @@ export default {
 <style lang="less" scoped>
 .search {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   height: 1rem;
   .backHome {
-    span {
-      margin-left: .1rem;
+    img {
+      width: .4rem;
+      height: .4rem;
     }
   }
-  .search-music {
+  .one {
+    width: 5rem;
+    height: .7rem;
+    background-color: #efefef;
+    border-radius: 50px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    height: .3rem;
-    .one {
-      width: 3.6rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: .33rem;
-      border: 1px solid black;
-      border-radius: .1rem;
-      background-color: white;
-      input {
-        width: 90%;
-        border-radius: .1rem;
-        background-color: white;
-        border: none;
-      }
+    .van-icon {
+      margin: 0 .2rem;
     }
-    button {
-      border: 1px solid black;
-      border-radius: .05rem;
-      background-color: #fff;
-      margin-left: .1rem;
+    .input {
+      width: 4.3rem;
+      height: .7rem;
+      display: flex;
+      justify-content: space-around;
+      input {
+        width: 100%;
+        height: 100%;
+        border: none;
+        background-color: #efefef;
+        outline: navajowhite;
+        border-radius: 50px;
+        padding: 0;
+      }
     }
   }
 }
+.ad {
+  width: 95%;
+  height: 2rem;
+  margin: .1rem auto;
+  position: relative;
+  .text {
+    position: absolute;
+    font-size: .2rem;
+    top: .1rem;
+    left: .2rem;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
 .search-history {
+  min-height: 1.2rem;
   width: 100%;
   .top {
     display: flex;
     justify-content: space-between;
-    padding: .1rem;
+    padding: .1rem .3rem;
     span {
       font-weight: bold;
     }
   }
   .content {
+    padding: 0 .3rem;
+    display: flex;
+    flex-wrap: wrap;
     span {
+      font-size: .25rem;
       margin: .1rem;
       padding: .1rem;
-      background-color: rgb(208, 186, 186);
-      border-radius: .1rem;
+      background-color: #efefef;
+      border-radius: 10px;
       display: inline-block;
     }
   }
+}
+.bottom {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 </style>
