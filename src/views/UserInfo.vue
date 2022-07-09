@@ -1,8 +1,13 @@
 <template>
   <div class="user-info">
-    <div class="back-home" @click="$router.push('/')">
-      <van-icon name="arrow-left" />
-      <span>返回</span>
+    <div class="back-home" >
+      <div class="left" @click="$router.push('/')">
+        <van-icon name="arrow-left" />
+        <span>返回</span>
+      </div>
+      <div class="right" @click="$router.push('/search')">
+        <van-icon name="search" size=".5rem" style="color : black"/>
+      </div>
     </div>
     <div class="panel">
       <div class="nick-img">
@@ -39,14 +44,29 @@
         心动模式
       </div>
     </div>
+    <div class="panel4" @click="logout">
+      <div>退出登录</div>
+    </div>
   </div>
 </template>
 
 <script>
+import { useStore } from 'vuex'
+import {useRouter} from 'vue-router'
 export default {
   setup() {
+    const store = useStore()
+    const router = useRouter()
     // const userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
+    // 退出登录
+    function logout() {
+      window.localStorage.removeItem('token')
+      window.localStorage.removeItem('historyKey')
+      store.commit('changeIsLogin',false)
+      router.push('/login')
+    }
     return {
+      logout
       // userInfo
     }
   }
@@ -58,8 +78,14 @@ export default {
   height: 13.34rem;
   background-color: #efefef;
   .back-home {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: .3rem;
     font-size: .35rem;
+  }
+  .right {
+
   }
   .panel {
     width: 95%;
@@ -140,6 +166,17 @@ export default {
       border-radius: 10px;
       padding: 3px;
     }
+  }
+  .panel4 {
+    width: 95%;
+    height: 1rem;
+    background-color: white;
+    box-sizing: border-box;
+    margin: .4rem auto;
+    padding: .2rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
   }
 }
 </style>

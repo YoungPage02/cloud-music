@@ -51,11 +51,11 @@ export default {
       store.commit('updateDuration',(audioRef.value.duration*1000))
       // console.log(store.state.duration,'歌曲总时间-来自方法');
     }
-    watch(store.state.playListIndex,(newVal,oldVal) => {
-      console.log(audioRef.value);
+    watch(() => store.state.playList,(newVal,oldVal) => {
+      console.log('监听到了吗？');
       audioRef.value.autoplay = true
       store.commit('changeAudio',false)
-    })
+    },{deep: true})
     // 播放、暂停事件
     function play() {
       if(store.state.audioPaused) {

@@ -1,12 +1,26 @@
 <template>
   <div class="login">
-    <img class="bgimg" src="@/assets/loginBg.jpg" alt="">
+    <div class="bg"></div>
+    <ul class="square">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <ul class="circle">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
     <!-- 二维码生成 -->
     <!-- <div class="base">
       <img :src="state.base64" alt="">
     </div> -->
     <!-- 验证码登录 -->
-    <van-form @submit="onSubmit">
+    <van-form @submit="onSubmit" v-if="loginType">
       <van-cell-group inset>
         <van-field
           v-model="state.phone"
@@ -24,15 +38,20 @@
         />
       </van-cell-group>
       <div class="btn" style="margin: 16px;">
-        <van-button round block type="primary" @click="getCode">
+        <van-button round block type="primary" @click="getCode" v-if="isCode">
           发送验证码
+        </van-button>
+        <van-button round block type="primary" v-else>
+          重新发送{{timer}}秒
         </van-button>
         <van-button round block type="primary" native-type="submit">
           登录
         </van-button>
+        <div class="text" @click="changeLoginType">切换登录方式</div>
       </div>
     </van-form>
-    <van-form @submit="onSubmit" v-if="false">
+    <!-- 手机登录 -->
+    <!-- <van-form @submit="onSubmit" v-if="false">
       <van-cell-group inset>
         <van-field
           v-model="state.phone"
@@ -55,7 +74,14 @@
           登录
         </van-button>
       </div>
-    </van-form>
+    </van-form> -->
+    <!-- 一键登录 -->
+    <div class="oneClickLogin" v-else>
+      <van-button round block type="primary" @click="onClickLogin">
+        一键登录
+      </van-button>
+      <div class="text" @click="changeLoginType">切换登录方式</div>
+    </div>
   </div>
 </template>
 
@@ -72,6 +98,11 @@ export default {
      base64: '',
      code: ''
    })
+   //  验证码倒计时
+   let isCode = ref(true)
+   let timer = ref(60)
+  //  一键登录方式
+   let loginType = ref(false)
    const store = useStore()
    const router = useRouter()
    const pattern = /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/;
@@ -110,16 +141,40 @@ export default {
     }
     console.log(state); */
    }
+  //  点击一键登录按钮
+  function onClickLogin() {
+    window.localStorage.setItem('token','elaina')
+    store.commit('changeIsLogin',true)
+    router.push('/userInfo')
+  }
+  // 改变登录方式
+  function changeLoginType() {
+    loginType.value = !loginType.value
+  }
   // 点击得到验证码
   async function getCode() {
     const {data:res} = await getVerCode(state.phone)
     console.log(res,'验证码');
+    isCode.value = false
+    const T = setInterval(() => {
+      timer.value --
+      if(timer.value <= 0) {
+        clearInterval(T)
+        isCode.value = true
+      }
+    },1000)
+    console.log(isCode.value);
   }
    return {
      state,
      pattern,
      onSubmit,
-     getCode
+     getCode,
+     isCode,
+     timer,
+     loginType,
+     onClickLogin,
+     changeLoginType
    }
  }
 }
@@ -127,17 +182,100 @@ export default {
 
 <style lang="less" scoped>
 .login {
-  width: 100%;
-  height: 100%;
-  background-color: pink;
-  img {
-    width: 100%;
-    height: 100%;
+  .bg {
+    height: 100vh;
+    background: linear-gradient(#e74c3c,#f1c40f);
+  }
+  ul li {
+    width: 30px;
+    height: 30px;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    z-index: -1;
+    border: 1px solid white;
+    list-style: none;
+  }
+  .square li {
+    animation: square 10s linear infinite;
+    opacity: 0;
+  }
+  .square li:nth-child(1) {
+    top: 30vh;
+    left: 45vw;
+    animation-delay: 2s;
+  }
+  .square li:nth-child(2) {
+    top: 10vh;
+    left: 84vw;
+    animation-delay: 4s;
+    background-color: white;
+  }
+  .square li:nth-child(3) {
+    top: 80vh;
+    left: 20vw;
+    animation-delay: 6s;
+  }
+  .square li:nth-child(4) {
+    top: 70vh;
+    left: 80vw;
+    animation-delay: 8s;   
+  }
+  .square li:nth-child(5) {
+    top: 20vh;
+    left: 15vw;
+    background-color: white;
+  }
+  @keyframes square {
+    from {
+      opacity: 1;
+      transform: scale(1) rotateY(0);
+    }
+    5% {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      transform: scale(3) rotateY(1000deg); 
+    }
+  }
+  .circle li {
+    bottom: 0px;
+    animation: circle 10s linear infinite;
+    opacity: 0;
+  }
+  .circle li:nth-child(1) {
+    left: 6vw;
+    animation-delay: 1s;
+  }
+  .circle li:nth-child(2) {
+    left: 26vw;
+    animation-delay: 7s;
+    background-color: white;
+  }
+  .circle li:nth-child(3) {
+    left: 50vw;
+    animation-delay: 3s;
+  }
+  .circle li:nth-child(4) {
+    left: 66vw;
+    animation-delay: 9s;
+    background-color: white;
+  }
+  .circle li:nth-child(5) {
+    left: 86vw;
+    animation-delay: 5s;
+  }
+  @keyframes circle {
+    from {
+      opacity: 0;
+      transform: translateY(0) scale(1) rotate(0);
+    }
+    5% {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-90vh) scale(3) rotate(1000deg);
+      border-radius: 50%;
+    } 
   }
   .van-form {
     width: 100%;
@@ -149,6 +287,25 @@ export default {
       .van-button {
         margin-bottom: .2rem;
       }
+      .text {
+        text-align: center;
+        margin-top: 12px;
+        font-size: .25rem;
+        color: #efefef;
+      }
+    }
+  }
+  .oneClickLogin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 90%;
+    .text {
+      text-align: center;
+      margin-top: 12px;
+      font-size: .25rem;
+      color: #efefef;
     }
   }
 }
