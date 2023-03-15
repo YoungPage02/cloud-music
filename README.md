@@ -21,7 +21,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 #### 打开网站时的发现页面
 ![发现页面](https://img-blog.csdnimg.cn/9c01280078f0494881cc6362d559c868.png)
 #### 点击歌单进入歌单页面
-![歌单页面](https://img-blog.csdnimg.cn/fb67139ef4cf45f9b05a966c2cc9c4d8.png)
+![歌单页面](https://img-blog.csdnimg.cn/3cd0133475054b48908bbf5062e05024.png)
 #### 进入歌曲播放页面
 ![歌曲页](https://img-blog.csdnimg.cn/fb67139ef4cf45f9b05a966c2cc9c4d8.png)
 ![歌词详情页](https://img-blog.csdnimg.cn/66667bea1e3e418194705e935b10a796.png)
